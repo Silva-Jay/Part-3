@@ -11,9 +11,14 @@ public class CharacterControl : MonoBehaviour
     public static CharacterControl instance;
     public TextMeshProUGUI characterText;
 
+    public Villager merchant;
+    public Villager thief;
+    public Villager archer;
+
     private void Start()
     {
         instance = this;
+        SetSelectedVillager(merchant);
     }
     public static void SetSelectedVillager(Villager villager)
     {
@@ -30,6 +35,22 @@ public class CharacterControl : MonoBehaviour
     static void changeText()
     {
         instance.characterText.text = (SelectedVillager.name); 
+    }
+
+    public void CharacterDropdown(Int32 value)
+    {
+        switch (value)
+        {
+            case 0:
+                SetSelectedVillager(merchant);
+                break;
+            case 1:
+                SetSelectedVillager(archer);
+                break;
+            case 2:    
+                SetSelectedVillager(thief); 
+                break;
+        }
     }
     
 }
