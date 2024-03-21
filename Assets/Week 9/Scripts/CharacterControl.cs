@@ -14,6 +14,7 @@ public class CharacterControl : MonoBehaviour
     public Villager merchant;
     public Villager thief;
     public Villager archer;
+    float villagerSize = 1;
 
     private void Start()
     {
@@ -30,6 +31,25 @@ public class CharacterControl : MonoBehaviour
         SelectedVillager.Selected(true);
 
         changeText();
+    }
+
+    private void Update()
+    {
+        if (SelectedVillager != null)
+        {
+            if (SelectedVillager.movement.x > 0)
+            {
+                SelectedVillager.transform.localScale = new Vector2(-villagerSize, villagerSize);
+            }
+            else if (SelectedVillager.movement.x < 0)
+            {
+                SelectedVillager.transform.localScale = new Vector2(villagerSize, villagerSize);
+            }
+        }
+    }
+    public void ResizeVillager(float value)
+    {
+        villagerSize = value;
     }
 
     static void changeText()

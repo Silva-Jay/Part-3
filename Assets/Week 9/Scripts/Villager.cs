@@ -13,8 +13,10 @@ public class Villager : MonoBehaviour
     public GameObject highlight;
 
     protected Vector2 destination;
-    Vector2 movement;
+    public Vector2 movement;
     protected float speed = 3;
+
+    public bool flipped = false;
 
     void Start()
     {
@@ -44,16 +46,19 @@ public class Villager : MonoBehaviour
     {
         movement = destination - (Vector2)transform.position;
 
+/*
         //flip the x direction of the game object & children to face the direction we're walking
-        if(movement.x > 0)
+        if(destination.x > transform.position.x)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3 (-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            flipped = true;
         }
-        else if (movement.x < 0)
+        else if (destination.x < transform.position.x)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            flipped = false;
         }
-
+*/
         //stop moving if we're close enough to the target
         if (movement.magnitude < 0.1)
         {
