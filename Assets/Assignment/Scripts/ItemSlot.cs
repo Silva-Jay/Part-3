@@ -9,6 +9,7 @@ public class ItemSlot : MonoBehaviour
     bool grabbed;
     protected KeyCode grabKey; //key associated with child item slot
     Vector3 originalSlot;
+    float size = 1;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -34,7 +35,26 @@ public class ItemSlot : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grabbed == true) 
         {
             grabbed = false;
-            rb.MovePosition(originalSlot);
+            StartCoroutine(Replace());
+        }
+    }
+
+    IEnumerator Replace()
+    {
+        while (size > 0)
+        {
+            size -= 1.3f * Time.deltaTime;
+            transform.localScale = new Vector3 (size, size, size);
+            yield return null;
+        }
+
+        rb.MovePosition(originalSlot);
+
+        while (size < 1)
+        {
+            size += 1.3f * Time.deltaTime;
+            transform.localScale = new Vector3(size, size, size);
+            yield return null;
         }
     }
     
