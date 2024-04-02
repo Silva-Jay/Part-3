@@ -8,6 +8,7 @@ public class WeaponScript : ItemSlot
     {
         base.Start();
         grabKey = KeyCode.Q;
+        itemName = "Weapon";
     }
 
 }
