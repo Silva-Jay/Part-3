@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WeaponScript : ItemSlot
 {
+    string itemname = "Weapon!";
     protected override void Grab()
     {
-        itemName = "Weapon!";
+        itemName = itemname;
         base.Grab();
     }
 

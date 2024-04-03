@@ -8,10 +8,11 @@ public class ThrowableScript : ItemSlot
     public GameObject powder;
     static string currentEffect;
     static int effectChoice;
+    string itemname = "Splash Bomb!";
 
     protected override void Grab()
     {
-        itemName = "Splash Bomb!";
+        itemName = itemname;
         base.Grab();
     }
 

@@ -73,6 +73,7 @@ public class ItemSlot : MonoBehaviour
                 itemText.SetText(" ");
                 usedNotif.SetText(" ");
                 effect.SetText(" ");
+                size = 1;
                 StartCoroutine(Replace());
             }
 
