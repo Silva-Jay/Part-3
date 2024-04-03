@@ -19,13 +19,14 @@ public class ItemSlot : MonoBehaviour
     public ItemSlot throwable;
     public ItemSlot consumable;
 
-    bool finishedReplace = true;
+    protected bool finishedReplace = true;
 
     ItemSlot selected;
 
     //item label variables
     public TextMeshProUGUI itemText;
     public TextMeshProUGUI usedNotif;
+    public TextMeshProUGUI effect;
     static protected string itemName;
 
     // Start is called before the first frame update
@@ -71,6 +72,7 @@ public class ItemSlot : MonoBehaviour
                 grabbed = false;
                 itemText.SetText(" ");
                 usedNotif.SetText(" ");
+                effect.SetText(" ");
                 StartCoroutine(Replace());
             }
 
@@ -114,6 +116,8 @@ public class ItemSlot : MonoBehaviour
             selected.transform.localScale = new Vector3(size, size, size);
             yield return null;
         }
+
+        Debug.Log("replaced!");
 
         selected = null;
         slotSet = false;
