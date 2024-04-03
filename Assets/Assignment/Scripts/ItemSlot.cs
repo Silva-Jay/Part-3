@@ -39,6 +39,8 @@ public class ItemSlot : MonoBehaviour
     {
         if (finishedReplace == true)
         {
+
+            //set selected item based on key press
             if (Input.GetKeyDown(KeyCode.Q) && grabbed == false)
             {
                 grabbed = true;
@@ -55,12 +57,14 @@ public class ItemSlot : MonoBehaviour
                 selected = consumable;
             }
 
+            //set original position when item is selected
             if (slotSet == false && selected != null)
             {
                 originalSlot = selected.transform.position;
                 slotSet = true;
             }
 
+            //reset if space is pressed
             if (Input.GetKeyDown(KeyCode.Space) && grabbed == true)
             {
                 grabbed = false;
@@ -68,6 +72,7 @@ public class ItemSlot : MonoBehaviour
                 StartCoroutine(Replace());
             }
 
+            //grab item
             if (grabbed == true)
             {
                 selected.Grab();
@@ -109,5 +114,7 @@ public class ItemSlot : MonoBehaviour
         finishedReplace = true;
 
     }
+
+    
     
 }
