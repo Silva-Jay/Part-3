@@ -62,6 +62,7 @@ public class ItemSlot : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && grabbed == true)
             {
                 grabbed = false;
+                itemText.SetText(" ");
                 StartCoroutine(Replace());
             }
 
@@ -73,7 +74,7 @@ public class ItemSlot : MonoBehaviour
 
     }
 
-    protected void Grab()
+    protected virtual void Grab()
     {
         rb.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         itemText.SetText(itemName);
@@ -101,7 +102,7 @@ public class ItemSlot : MonoBehaviour
 
         selected = null;
         slotSet = false;
-        itemText.SetText(" ");
+        itemName = string.Empty;
 
         finishedReplace = true;
 
