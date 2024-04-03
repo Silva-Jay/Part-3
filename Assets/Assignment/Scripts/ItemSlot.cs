@@ -8,10 +8,18 @@ public class ItemSlot : MonoBehaviour
 {
     Rigidbody2D rb;
     SpriteRenderer sr;
-    bool grabbed;
-    protected KeyCode grabKey; //key associated with child item slot
-    Vector3 originalSlot;
+    protected bool grabbed;
+    protected Vector3 originalSlot;
     float size = 1;
+    protected bool slotSet = false;
+
+    public ItemSlot weapon;
+    public ItemSlot throwable;
+    public ItemSlot consumable;
+
+    bool finishedReplace = true;
+
+    ItemSlot selected;
 
     //item label variables
     public TextMeshProUGUI itemText;
@@ -22,51 +30,81 @@ public class ItemSlot : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        Debug.Log("Hello!");
-        originalSlot = transform.position;
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
-        if (Input.GetKeyDown(grabKey))
+        if (finishedReplace == true)
         {
-            grabbed = true;
-        }
+            if (Input.GetKeyDown(KeyCode.Q) && grabbed == false)
+            {
+                grabbed = true;
+                selected = weapon;
+            }
+            else if (Input.GetKeyDown(KeyCode.W) && grabbed == false)
+            {
+                grabbed = true;
+                selected = throwable;
+            }
+            else if (Input.GetKeyDown(KeyCode.E) && grabbed == false)
+            {
+                grabbed = true;
+                selected = consumable;
+            }
 
-        if (grabbed == true)
-        {
-            rb.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            itemText.SetText(itemName);
-        }
+            if (slotSet == false && selected != null)
+            {
+                originalSlot = selected.transform.position;
+                slotSet = true;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && grabbed == true) 
-        {
-            grabbed = false;
-            StartCoroutine(Replace());
-            itemText.SetText(" ");
+            if (Input.GetKeyDown(KeyCode.Space) && grabbed == true)
+            {
+                grabbed = false;
+                StartCoroutine(Replace());
+            }
+
+            if (grabbed == true)
+            {
+                selected.Grab();
+            }
         }
 
     }
 
-    //Place the item back in its slot when it gets deselected
-    IEnumerator Replace()
+    protected void Grab()
     {
+        rb.MovePosition(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        itemText.SetText(itemName);
+    }
+
+    //Place the item back in its slot when it gets deselected
+    protected IEnumerator Replace()
+    {
+        finishedReplace = false;
         while (size > 0)
         {
             size -= 1.3f * Time.deltaTime;
-            transform.localScale = new Vector3 (size, size, size);
+            selected.transform.localScale = new Vector3 (size, size, size);
             yield return null;
         }
 
-        rb.MovePosition(originalSlot);
+        selected.rb.MovePosition(originalSlot);
 
         while (size < 1)
         {
             size += 1.3f * Time.deltaTime;
-            transform.localScale = new Vector3(size, size, size);
+            selected.transform.localScale = new Vector3(size, size, size);
             yield return null;
         }
+
+        selected = null;
+        slotSet = false;
+        itemText.SetText(" ");
+
+        finishedReplace = true;
+
     }
     
 }

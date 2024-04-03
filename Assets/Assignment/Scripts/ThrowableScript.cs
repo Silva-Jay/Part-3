@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponScript : ItemSlot
+public class ThrowableScript : ItemSlot
 {
-    //item 1
 
 }
