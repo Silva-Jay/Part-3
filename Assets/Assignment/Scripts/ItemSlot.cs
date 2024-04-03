@@ -6,6 +6,8 @@ using TMPro;
 
 public class ItemSlot : MonoBehaviour
 {
+    //All grapic assets drawn by Sophia Grasman
+
     Rigidbody2D rb;
     SpriteRenderer sr;
     protected bool grabbed;
@@ -23,7 +25,7 @@ public class ItemSlot : MonoBehaviour
 
     //item label variables
     public TextMeshProUGUI itemText;
-    protected string itemName;
+    static protected string itemName;
 
     // Start is called before the first frame update
     protected virtual void Start()
