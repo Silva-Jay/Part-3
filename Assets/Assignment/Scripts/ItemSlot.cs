@@ -8,7 +8,7 @@ public class ItemSlot : MonoBehaviour
 {
     //All grapic assets drawn by Sophia Grasman
 
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     SpriteRenderer sr;
     protected bool grabbed;
     protected Vector3 originalSlot;
@@ -25,6 +25,7 @@ public class ItemSlot : MonoBehaviour
 
     //item label variables
     public TextMeshProUGUI itemText;
+    public TextMeshProUGUI usedNotif;
     static protected string itemName;
 
     // Start is called before the first frame update
@@ -69,6 +70,7 @@ public class ItemSlot : MonoBehaviour
             {
                 grabbed = false;
                 itemText.SetText(" ");
+                usedNotif.SetText(" ");
                 StartCoroutine(Replace());
             }
 
@@ -76,6 +78,12 @@ public class ItemSlot : MonoBehaviour
             if (grabbed == true)
             {
                 selected.Grab();
+            }
+
+            //use item
+            if (Input.GetMouseButtonDown(0) && grabbed == true)
+            {
+                selected.StartCoroutine(UseItemFlash());
             }
         }
 
@@ -115,6 +123,24 @@ public class ItemSlot : MonoBehaviour
 
     }
 
-    
+    protected virtual IEnumerator UseItemFlash()
+    {
+        selected.sr.color = Color.yellow;
+        yield return new WaitForSeconds(.1f);
+        selected.sr.color = Color.white;
+        yield return new WaitForSeconds(.1f);
+        selected.sr.color = Color.yellow;
+        yield return new WaitForSeconds(.1f);
+        selected.sr.color = Color.white;
+        yield return new WaitForSeconds(.1f);
+
+        selected.UseItem();
+
+    }
+
+    protected virtual void UseItem()
+    {
+        usedNotif.SetText("Item Used!");
+    }
     
 }
