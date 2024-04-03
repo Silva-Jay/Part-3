@@ -21,9 +21,11 @@ public class ThrowableScript : ItemSlot
         base.UseItem();
         EffectSelect();
         effect.SetText(currentEffect);
+        //throw powder
         GameObject.Instantiate(powder, transform.position, transform.rotation);
     }
 
+    //randomly select effect in use
     static void EffectSelect()
     {
         effectChoice = Random.Range(0, 3);

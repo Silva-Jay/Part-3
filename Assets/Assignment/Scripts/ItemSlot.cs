@@ -6,24 +6,37 @@ using TMPro;
 
 public class ItemSlot : MonoBehaviour
 {
+    //Assignment 3 - Hotbar/Quick Equip System
     //All grapic assets drawn by Sophia Grasman
 
+    //components
     protected Rigidbody2D rb;
     SpriteRenderer sr;
+
+    //item currently grabbed
     protected bool grabbed;
+
+    //vector for original hotbar position
     protected Vector3 originalSlot;
+
+    //size of equipped item
     float size = 1;
+
+    //original slot set?
     protected bool slotSet = false;
 
+    //items
     public ItemSlot weapon;
     public ItemSlot throwable;
     public ItemSlot consumable;
 
+    //finished replace coroutine?
     protected bool finishedReplace = true;
 
+    //currently selected item
     ItemSlot selected;
 
-    //item label variables
+    //text GUI
     public TextMeshProUGUI itemText;
     public TextMeshProUGUI usedNotif;
     public TextMeshProUGUI effect;
@@ -128,6 +141,7 @@ public class ItemSlot : MonoBehaviour
 
     }
 
+    //flash item when used
     protected virtual IEnumerator UseItemFlash()
     {
         selected.sr.color = Color.yellow;

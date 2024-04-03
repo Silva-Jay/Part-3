@@ -16,6 +16,7 @@ public class ConsumableScript : ItemSlot
         StartCoroutine(Heal());
     }
 
+    //drink potion
     IEnumerator Heal()
     {
         while (rb.rotation < 40)

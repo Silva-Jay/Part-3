@@ -17,6 +17,7 @@ public class WeaponScript : ItemSlot
         StartCoroutine(SwordSlash());
     }
 
+    //swing sword
     IEnumerator SwordSlash()
     {
         while (rb.rotation < 60)
